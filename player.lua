@@ -1,8 +1,13 @@
-function player (x, y, max_vx, max_vy, max_hunger, size)
+require("rice")
+function player (x, y, max_vx, max_vy, max_hunger, size, range)
 
 	local alive = true
 	local auto_move = false
 	local timer = 0
+	local reproduce_chance = math.random(0, 1)
+	local function mutate()
+		return math.random(-5, 5)
+	end
 	
 	return{
 	x = x,
@@ -12,6 +17,7 @@ function player (x, y, max_vx, max_vy, max_hunger, size)
 	max_vy = max_vy,
 	max_hunger = max_hunger,
 	hunger = max_hunger,
+	range = range,
 	
 	eat = function(self)
 	
@@ -28,8 +34,9 @@ function player (x, y, max_vx, max_vy, max_hunger, size)
 			timer = timer + dt 
 			
 			if timer >= 1 then
-				self.hunger = self.hunger - 1
+				--self.hunger = self.hunger - 1
 				timer = 0
+				reproduce_chance = math.random(0, 3)
 			end
 			
 			if auto_move == false then
@@ -51,7 +58,7 @@ function player (x, y, max_vx, max_vy, max_hunger, size)
 					auto_move = false
 				end
 				
-				if distance_between(mouse_x, self.x, mouse_y, self.y) > 0 then
+				if distance_between(cursor.x, self.x, cursor.y, self.y) > 0 then
 					self.x = self.x + math.cos(angle) * self.max_vx * dt
 					self.y = self.y + math.sin(angle) * self.max_vy * dt
 				end
@@ -66,11 +73,14 @@ function player (x, y, max_vx, max_vy, max_hunger, size)
 					auto_move = not auto_move
 				end
 			end
+			
+			if reproduce_chance == 2 then
+				self:reproduce()
+			end
 		end
 	end,
 		
 	draw = function(self)
-	
 		if alive then
 			love.graphics.circle("fill", self.x, self.y, self.size)
 		end
@@ -78,6 +88,14 @@ function player (x, y, max_vx, max_vy, max_hunger, size)
 	
 	kill = function()
 		alive = false
+	end,
+	
+	reproduce = function(self)
+		if self.hunger >= 8 then
+			table.insert(RICES, rice(self.x, self.y, self.max_vx + mutate(), self.max_vy + mutate(), self.max_hunger + mutate(), self.size, self.range + mutate()))
+			self.hunger = self.hunger - 6
+			reproduce_chance = 0
+		end
 	end,
 	}
 end

@@ -1,10 +1,13 @@
-function rice(x, y, max_vx, max_vy, max_hunger, size)
+function rice(x, y, max_vx, max_vy, max_hunger, size, range)
 
 	local move_timer = 0
 	local hunger_timer = 0
 	local interval = 1
 	local reproduce_chance = math.random(0, 1)
 	local alive = true
+	local function mutate()
+		return math.random(-5, 5)
+	end
 	
 return{
 	x = x,
@@ -19,6 +22,7 @@ return{
 	follow_x = 0,
 	follow_y = 0,
 	following = false,
+	range = range,
 	
 	update = function(self, dt)
 		if alive then
@@ -48,18 +52,18 @@ return{
 				hunger_timer = 0
 			end
 				
-			if self.x + 7.5 >= win_width then
+			--[[if self.x + self.size/2 >= win_width and self.vx > 0 then
 				self.vx = self.vx * -1
 			end
-			if self.y + 7.5 >= win_height then
+			if self.y + self.size/2 >= win_height and self.vy > 0 then
 				self.vy = self.vy * -1
 			end
-			if self.x - 7.5 <= 0 then
+			if self.x - self.size/2 <= 0 and self.vx < 0 then
 				self.vx = self.vx * -1
 			end
-			if self.y - 7.5 <= 0 then
+			if self.y - self.size/2 <= 0  and self.vy < 0 then
 				self.vy = self.vy * -1
-			end
+			end]]
 
 			if reproduce_chance == 1 then
 				self:reproduce()
@@ -69,10 +73,8 @@ return{
 			if self.hunger <= 0 then
 				self:kill()
 			end
-      
-      if self.hunger == 10 then
-        self:reproduce()
-      end
+			
+			self.following = false
 		end
 	end,
 	
@@ -102,8 +104,11 @@ return{
 	end,
 	
 	reproduce = function(self)
-		table.insert(RICES, rice(self.x, self.y, self.max_vx, self.max_vy, self.max_hunger, self.size))
-    self.hunger = self.hunger - 6
+		if self.hunger >= 8 then
+			table.insert(RICES, rice(self.x, self.y, self.max_vx + mutate(), self.max_vy + mutate(), self.max_hunger + mutate(), self.size + mutate(), self.range + mutate()))
+			self.hunger = self.hunger - 6
+			reproduce_chance = 0
+		end
 	end,
 	
 	kill = function(self)

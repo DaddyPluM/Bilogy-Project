@@ -1,14 +1,14 @@
 function love.conf(t)
 	t.window.title = 'Bilogy-Project'
-	t.window.width = 1920
-	t.window.height = 1080
+	t.window.width = 1366
+	t.window.height = 768
 	t.window.msaa = 4
 	t.window.borderless = false        -- Remove all border visuals from the window (boolean)
 	t.window.resizable = false         -- Let the window be user-resizable (boolean)
 	t.window.minwidth = 1              -- Minimum window width if the window is resizable (number)
 	t.window.minheight = 1             -- Minimum window height if the window is resizable (number)
-	t.window.fullscreen = false        -- Enable fullscreen (boolean)
-	t.window.fullscreentype = "desktop" -- Standard fullscreen or desktop fullscreen mode (string)
+	t.window.fullscreen = true        -- Enable fullscreen (boolean)
+	t.window.fullscreentype = "exclusive" -- Standard fullscreen or desktop fullscreen mode (string)
 	t.window.vsync = true              -- Enable vertical sync (boolean)
 	t.window.fsaa = 0                  -- The number of samples to use with multi-sampled antialiasing (number)
 	t.window.display = 1               -- Index of the monitor to show the window in (number)
