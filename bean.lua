@@ -3,7 +3,7 @@ function bean(x, y, max_vx, max_vy, size)
 	local timer = 0
 	local alive = true
 	local interval = math.random(1, 6)
-	local reproduce_chance = math.random(0, 5)
+	local reproduce_chance = math.random(0, 10)
 	local mutation = math.random(0, 1)
 	local function mutation_rate()
 		return math.random(-1, 1)
@@ -36,18 +36,18 @@ function bean(x, y, max_vx, max_vy, size)
 				end
 				
 				if timer >= interval then
-					self.vx = math.random(-self.max_vx, self.max_vx) * dt
-					self.vy = math.random(-self.max_vy, self.max_vy) * dt
-					timer = 0
+					self.vx = math.random(-self.max_vx, max_vx)
+					self.vy = math.random(-self.max_vy, max_vy)
 					reproduce_chance = math.random(0, 5)
 					mutation = math.random(0, 1)
 					interval = math.random(1, 6)
+					timer = 0
 				end
 				
-				--[[if self.x + self.size/2 >= win_width and self.vx > 0 then
+				if self.x + self.size/2 >= 3000 and self.vx > 0 then
 					self.vx = self.vx * -1
 				end
-				if self.y + self.size /2>= win_height and self.vy > 0 then
+				if self.y + self.size /2>= 3000 and self.vy > 0 then
 					self.vy = self.vy * -1
 				end
 				if self.x - self.size/2 <= 0 and self.vx < 0 then
@@ -55,7 +55,7 @@ function bean(x, y, max_vx, max_vy, size)
 				end
 				if self.y - self.size/2 <= 0 and self.vy < 0 then
 					self.vy = self.vy * -1
-				end]]
+				end
 				if reproduce_chance == 3 then
 					self:reproduce()
 					reproduce_chance = math.random(0, 3)

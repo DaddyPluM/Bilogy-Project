@@ -17,7 +17,7 @@ return{
 	vx = 1,
 	vy = 1,
 	max_hunger = max_hunger,
-	hunger = 8,
+	hunger = math.floor(max_hunger/2),
 	size = size,
 	follow_x = 0,
 	follow_y = 0,
@@ -52,10 +52,10 @@ return{
 				hunger_timer = 0
 			end
 				
-			--[[if self.x + self.size/2 >= win_width and self.vx > 0 then
+			if self.x + self.size/2 >= 3000 and self.vx > 0 then
 				self.vx = self.vx * -1
 			end
-			if self.y + self.size/2 >= win_height and self.vy > 0 then
+			if self.y + self.size/2 >= 3000 and self.vy > 0 then
 				self.vy = self.vy * -1
 			end
 			if self.x - self.size/2 <= 0 and self.vx < 0 then
@@ -63,7 +63,7 @@ return{
 			end
 			if self.y - self.size/2 <= 0  and self.vy < 0 then
 				self.vy = self.vy * -1
-			end]]
+			end
 
 			if reproduce_chance == 1 then
 				self:reproduce()
@@ -105,7 +105,7 @@ return{
 	
 	reproduce = function(self)
 		if self.hunger >= 8 then
-			table.insert(RICES, rice(self.x, self.y, self.max_vx + mutate(), self.max_vy + mutate(), self.max_hunger + mutate(), self.size + mutate(), self.range + mutate()))
+			table.insert(RICES, rice(self.x, self.y, self.max_vx + mutate(), self.max_vy + mutate(), self.max_hunger, self.size + mutate(), self.range + mutate()))
 			self.hunger = self.hunger - 6
 			reproduce_chance = 0
 		end

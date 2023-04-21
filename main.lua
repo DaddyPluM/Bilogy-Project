@@ -8,7 +8,6 @@ local camera = require "camera"
 local timer = 0
 BEANS = {}
 RICES = {}
-create = true
 mob_count = 1
 rice_count = 2
 cursor = {}
@@ -16,26 +15,27 @@ local scale = 1
 local cam = camera()
 local work = false
 math.randomseed(os.time() * math.random())
+local thread_code
 
 mouse_x, mouse_y = love.mouse.getPosition()
 win_width, win_height = love.window.getMode()
 
 function love.load()
-	ween = player(win_width / 2, win_height / 2, 200, 200, 10, 20, 80)
+	ween = player(1500, 1500, 300, 300, 10, 20, 80)
 	--table.insert(BEANS, bean(math.random(100, 700), math.random(100, 500), math.random(-5, 5), math.random(-5, 5), math.random(10, 15)))
 	table.insert(BEANS, bean(200, 300, 3, 3, 10))
 	--[[table.insert(RICES, rice(100, 500, 200, 200, 10, 15))
 	table.insert(RICES, rice(500, 500, 200, 200, 10, 15))
 	table.insert(RICES, rice(800, 700, 200, 200, 10, 15))]]
-	table.insert(RICES, rice(1000, 500, 200, 200, 10, 15, 80))
+	--table.insert(RICES, rice(1000, 500, 200, 200, 10, 15, 80))
 	cursor.y = mouse_y
 	cursor.x = mouse_x
 	local function loop(count)
 		for i=1, count do
-			table.insert(BEANS, bean(math.random(-100, win_width + 100), math.random(-100, win_height + 100), math.random(-5, 150), math.random(-5, 150), math.random(10, 15)))
+			table.insert(BEANS, bean(math.random(-100, 3000), math.random(-100, 3000), math.random(-5, 150), math.random(-5, 150), math.random(10, 15)))
 		end
 	end
-	loop(100)
+	loop(300)
 end
 
 function love.update(dt)
