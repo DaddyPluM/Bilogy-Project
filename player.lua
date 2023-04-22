@@ -91,11 +91,11 @@ function player (x, y, max_vx, max_vy, max_hunger, size, range)
 	end,
 	
 	reproduce = function(self)
-		if self.hunger >= 8 then
+		--[[if self.hunger >= 8 then
 			table.insert(RICES, rice(self.x, self.y, self.max_vx + mutate(), self.max_vy + mutate(), self.max_hunger + mutate(), self.size, self.range + mutate()))
 			self.hunger = self.hunger - 6
 			reproduce_chance = 0
-		end
+		end]]
 	end,
 	}
 end
