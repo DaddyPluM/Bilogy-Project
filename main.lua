@@ -18,7 +18,7 @@ local cam = camera()
 local work = false
 math.randomseed(os.time() * math.random())
 local thread_code
-box_size = 3000
+box_size = 2000
 
 mouse_x, mouse_y = love.mouse.getPosition()
 win_width, win_height = love.window.getMode()
@@ -37,11 +37,13 @@ function love.load()
 	--[[table.insert(RICES, rice(100, 500, 200, 200, 10, 15))
 	table.insert(RICES, rice(500, 500, 200, 200, 10, 15))
 	table.insert(RICES, rice(800, 700, 200, 200, 10, 15))]]
-	table.insert(RICES, rice("male", 100, 500, 200, 200, 12, 15, 80))
-	table.insert(RICES, rice("female", 130, 500, 200, 200, 12, 15, 80))
-	table.insert(RICES, rice("female", 130, 500, 200, 200, 12, 15, 80))
-	table.insert(RICES, rice("female", 200, 600, 200, 200, 12, 15, 60))
-	table.insert(GRASSES, grass(math.random(100, 2900), math.random(100, 2900), 10))
+	--[[table.insert(RICES, rice("male", 100, 500, 200, 200, 12, 15, 120))
+	table.insert(RICES, rice("female", 130, 500, 200, 200, 12, 15, 120))
+	table.insert(RICES, rice("female", 130, 500, 200, 200, 12, 15, 120))
+	table.insert(RICES, rice("female", 200, 600, 200, 200, 12, 15, 120))
+	table.insert(RICES, rice("male", math.random(100, 1900), math.random(100, 1900), 200, 200, 12, 15, 120))
+	table.insert(RICES, rice("female", math.random(100, 1900), math.random(100, 1900), 200, 200, 12, 15, 120))]]
+	table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
 	--[[table.insert(RICES, rice("female", 200, 500, 200, 200, 12, 15, 80))
 	table.insert(RICES, rice("male", 110, 500, 200, 200, 12, 15, 80))
 	table.insert(RICES, rice("male", 120, 500, 200, 200, 12, 15, 80))
@@ -67,14 +69,32 @@ function love.load()
 	end
 	local function loop(count)
 		for i=1, count do
-			table.insert(BEANS, bean(pick_gender(), math.random(-100, box_size), math.random(-100, box_size), math.random(-5, 190), math.random(-5, 190), 10, math.random(10, 15)))
-			table.insert(GRASSES, grass(math.random(100, 2900), math.random(100, 2900), 10))
-			table.insert(GRASSES, grass(math.random(100, 2900), math.random(100, 2900), 10))
-			table.insert(GRASSES, grass(math.random(100, 2900), math.random(100, 2900), 10))
-			table.insert(GRASSES, grass(math.random(100, 2900), math.random(100, 2900), 10))
+			table.insert(BEANS, bean(pick_gender(), math.random(-100, box_size), math.random(-100, box_size), math.random(-5, 185), math.random(-5, 185), 10, math.random(10, 15)))
+			table.insert(BEANS, bean(pick_gender(), math.random(-100, box_size), math.random(-100, box_size), math.random(-5, 185), math.random(-5, 185), 10, math.random(10, 15)))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
+			table.insert(GRASSES, grass(math.random(100, 1900), math.random(100, 1900), 10))
 		end
 	end
-	loop(600)
+	local function lopp(count)
+		for i =1, count do
+			table.insert(RICES, rice("male", math.random(100, 1900), math.random(100, 1900), 200, 200, 12, 15, 120))
+			table.insert(RICES, rice("female", math.random(100, 1900), math.random(100, 1900), 200, 200, 12, 15, 120))
+		end
+	end
+	lopp(5)
+	loop(100)
 end
 
 function love.update(dt)
@@ -93,7 +113,7 @@ function love.update(dt)
 	end
 	for index_b, bean in pairs(BEANS) do
 		bean:update(dt)
-		if distance_between(ween.x, bean.x, ween.y, bean.y) <= 80 then
+		--[[if distance_between(ween.x, bean.x, ween.y, bean.y) <= 80 then
 			bean:run(ween.x, ween.y)
 		end
 		if distance_between(ween.x, bean.x, ween.y, bean.y ) <= ween.size + 1 then
@@ -101,9 +121,9 @@ function love.update(dt)
 			bean:kill()
 			table.remove(BEANS, index_b)
 			mob_count = mob_count - 1
-		end
+		end]]
 		for index_b2, bean2 in pairs(BEANS) do
-			if distance_between(bean.x, bean2.x, bean.y, bean2.y) <=1000 and bean.search == true and bean2.gender == "female" and bean.gender == "male" and bean2.following == false then
+			if distance_between(bean.x, bean2.x, bean.y, bean2.y) <=500 and bean.search == true and bean2.gender == "female" and bean.gender == "male" and bean2.following == false --[[and bean2.hunger == max_hunger]] then
 				bean:follow(bean2.x, bean2.y)
 				bean2:follow(bean.x, bean.y)
 			end
@@ -130,11 +150,11 @@ function love.update(dt)
 			rice:kill()
 		end
 		for index_r2, rice2 in pairs(RICES) do
-			if distance_between(rice.x, rice2.x, rice.y, rice2.y) <= 1000 and rice.search == true and rice2.gender == "female" and rice.gender == "male" and rice2.hunger == rice2.max_hunger and rice2.following == false then
+			if distance_between(rice.x, rice2.x, rice.y, rice2.y) <= 1000 and rice.search == true and rice2.gender == "female" and rice.gender == "male" and rice2.hunger >= rice2.max_hunger - 2 and rice2.following == false then
 				rice:follow(rice2.x, rice2.y)
 				rice2:follow(rice.x, rice.y)
 			end
-			if distance_between(rice.x, rice2.x, rice.y, rice2.y) <= 3 and rice.search == true and rice2.gender == "female" and rice.gender == "male" then
+			if (distance_between(rice.x, rice2.x, rice.y, rice2.y) <= rice.size - 2 or distance_between(rice2.x, rice.x, rice2.y, rice.y) <= rice2.size - 2) and rice.search == true and rice2.gender == "female" and rice.gender == "male" then
 				rice2:reproduce({max_vx = rice.max_vx, max_vy = rice.max_vy, size = rice.size, range = rice.range})
 				rice:reproduce()
 				rice.search = false
@@ -144,11 +164,13 @@ function love.update(dt)
 			if distance_between(rice.x, bean.x, rice.y, bean.y) <= rice.range/2 and rice.hunger < rice.max_hunger then
 				rice:follow(bean.x, bean.y)
 				bean:run(rice.x, rice.y)
+				bean.search = false
 			elseif distance_between(rice.x, bean.x, rice.y, bean.y) <= rice.range and rice.hunger < rice.max_hunger then
 				rice:follow(bean.x, bean.y)
 				bean:run(rice.x, rice.y)
+				bean.search = false
 			end
-			if distance_between(rice.x, bean.x, rice.y, bean.y) <= rice.size + 2 then
+			if distance_between(rice.x, bean.x, rice.y, bean.y) <= rice.size + 2 or distance_between(bean.x, rice.x, bean.y, rice.y) <= bean.size + 2 and rice.hunger < rice.max_hunger then
 				rice:eat()
 				bean:kill()
 				table.remove(BEANS, index_b)
@@ -186,9 +208,9 @@ function love.draw()
 				grass:draw()
 			end
 		end
-		ween:draw()
+		--ween:draw()
 	cam:detach()
-	love.graphics.print(#BEANS + #RICES)
+	love.graphics.print(#GRASSES--[[#BEANS + #RICES]])
 end
 
 function distance_between(x1, x2, y1, y2)

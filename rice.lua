@@ -88,12 +88,10 @@ return{
 	end,
 	
 	eat = function(self)
+		self.following = false
 		if self.alive then
 			if self.hunger < self.max_hunger then
 				self.hunger = self.hunger + 1
-				self.following = false
-			else
-				self.following = false
 			end
 			hunger_timer = 0
 		end
@@ -122,7 +120,6 @@ return{
 	
 	kill = function(self)
 		self.alive = false
-		table.remove(RICES, index)
 	end
 }
 

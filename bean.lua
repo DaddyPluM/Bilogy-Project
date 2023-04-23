@@ -5,9 +5,6 @@ function bean(gender, x, y, max_vx, max_vy, max_hunger, size)
 	local interval = math.random(1, 6)
 	--local reproduce_chance = math.random(0, 8)
 	local mutation = math.random(0, 1)
-	local function mutation_rate()
-		return math.random(-1, 1)
-	end
 
 	return{
 		x = x,
@@ -64,7 +61,7 @@ function bean(gender, x, y, max_vx, max_vy, max_hunger, size)
 					end
 				end
 				
-				if hunger_timer >= 3 then
+				if hunger_timer >= 4 then
 					self.hunger = self.hunger - 1
 					hunger_timer = 0
 				end
