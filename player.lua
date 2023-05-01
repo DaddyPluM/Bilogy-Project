@@ -71,6 +71,9 @@ function player (x, y, max_vx, max_vy, max_hunger, size, range)
 			function love.keypressed(key)
 				if key == "q" then
 					auto_move = not auto_move
+				elseif key == "escape" then
+					data.save("test7", table.concat(data_table, "\n"))
+					love.event.quit()
 				end
 			end
 			

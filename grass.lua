@@ -1,8 +1,8 @@
 function grass(x, y, size)
 	local timer = 0
 	--local reproduce_chance = 0
-	local function mutate()
-		return math.random(-15, 15)
+	local function mutate_p()
+		return math.random(-40, 40)
 	end
 	
 	return{
@@ -16,27 +16,30 @@ function grass(x, y, size)
 			if self.alive == true then
 				timer = timer + dt
 				
-				--[[if timer >= 3 then
-					reproduce_chance = math.random(0, 3)
+				if timer >= 5 then
+					reproduce_chance = math.random(0, 5)
 					timer = 0
-				end]]
+				end
 				
-				--[[if reproduce_chance == 1 then
+				if reproduce_chance == 1 then
 					self:reproduce()
 					reproduce_chance = 0
-				end]]
+				end
 
-				if #GRASSES < 2000 then
+				if #GRASSES < 1000 and day < 40 then
 					self:reproduce()
 				end
 			end
 		end,
 		
 		reproduce = function(self)
-		if #GRASSES < 2000 then
-			table.insert(GRASSES, grass(math.random(100, box_size)--[[self.x + mutate()]], math.random(100, box_size)--[[self.y + mutate()]], self.size + mutate()))
-			reproduce_chance = 1
-		end
+			local children = math.random(4, 10)
+			if #GRASSES < 2500 then
+				for i = 1, 4 do
+					table.insert(GRASSES, grass(math.random(11, box_size)--[[self.x + mutate_p()]], math.random(11, box_size)--[[self.y + mutate_p()]], self.size))
+					reproduce_chance = 0
+				end
+			end
 		end,
 		
 		kill = function(self)
